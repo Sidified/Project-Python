@@ -12,7 +12,7 @@ The repository is organized into different parts, with each part focusing on a s
 The sections contains:
 - **Notes** covering the concepts and lessons learned in that module.
 - **Practice projects** that reinforce those concepts through hands-on implementation, starting with simple exercises and gradually increasing in complexity.
-- **PythonBook.md**, which serves as a reference for Python concepts throughout the learning journey.
+- [**`PythonBook.md`**](./PythonBook.md), which serves as a reference for Python concepts throughout the learning journey.
 
 Repository structure:
 
