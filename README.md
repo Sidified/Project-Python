@@ -1,10 +1,20 @@
 # Python Learning Journey
 
-A repository dedicated to learning and mastering Python step-by-step through core notes and practical building.
+A repository documenting my journey of learning and mastering Python through structured notes, hands-on practice, and progressively challenging projects.
+## Learning Philosophy
+
+This repository is focused on learning by building. Each topic is first studied through structured notes and then reinforced by implementing practical projects before moving on to more advanced concepts.
 
 ## Repository Structure
 
-The rep is organized by modules and parts, for example:
+The repository is organized into different parts, with each part focusing on a specific Python topic.
+
+The sections contains:
+- **Notes** covering the concepts and lessons learned in that module.
+- **Practice projects** that reinforce those concepts through hands-on implementation, starting with simple exercises and gradually increasing in complexity.
+- **PythonBook.md**, which serves as a reference for Python concepts throughout the learning journey.
+
+Repository structure:
 
 ```text
 ├── part-1-Foundations/
@@ -17,12 +27,15 @@ The rep is organized by modules and parts, for example:
 │       ├── 3_FilenameAnatomy.py
 │       ├── 4_MLTrainingLogLine.py
 │       ├── 5_PromptTemplateBuilder.py
-│       └── 6_MessagePreprocessor...
+│       └── 6_MessagePreprocessor.py
 └── PythonBook.md
 ```
+
 ## How to Run
-To run any of the practice scripts locally, navigate to its directory and use the python command:
+
+Navigate to the directory containing the practice project and run it using Python:
 
 ```bash
 cd part-2-TheBuilt-inTypes/practice-projects-part2
 python3 1_TemperatureConverter.py
+```
