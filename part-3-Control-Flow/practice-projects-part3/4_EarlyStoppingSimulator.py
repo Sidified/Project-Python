@@ -22,5 +22,5 @@ for i, loss in enumerate(pythonlosses):
     if loss < target:
         print(f"converged at epoch {i} with loss {loss}")
         break
-    else:
-        print("did not converge")
+else:
+    print("did not converge")
