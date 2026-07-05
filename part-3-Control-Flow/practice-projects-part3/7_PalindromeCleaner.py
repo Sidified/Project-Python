@@ -29,16 +29,21 @@
 # step 1
 text = "A man, a plan, a canal: Panama"
 idt = id(text)
+newText = []
+for char in text:
+    if char.isalnum():
+        newText.append(char)
 
 # step 2
-cleaned = "".join([c for c in text.lower() if c.isalnum()])
+cleaned = "".join(newText)
+cleaned = cleaned.lower()
 
 # step 3
 revCleaned = cleaned[::-1]
 
 # step 4
 if cleaned == revCleaned:
-    print("Its a Palindrome")
+     print("Its a Palindrome")
 else:
     print("Its not a Palindrome")
 
