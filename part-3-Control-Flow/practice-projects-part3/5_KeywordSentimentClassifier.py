@@ -38,10 +38,10 @@ if pos == neg:
 elif pos>neg:
     result = "This 'review' statement is positive"
 elif pos<neg:
-    result = "This 'review' statement is negativee"
+    result = "This 'review' statement is negative"
 
 
 print(f'''Total positives in review is -> {pos}
-Total negatives in p is -> {neg}''')
+Total negatives in review is -> {neg}''')
 
 print(result)
