@@ -144,7 +144,7 @@ print(avgAcc)
     
 # ----------------------------------------------
 
-# Part-3 ---------------------------------------
+# Part-4 ---------------------------------------
 
 for keys in by_exp:
     print(f"Experiment {keys}: {numEp[keys]} epochs | final_loss={finalLoss[keys]:.4f} | {finalLossAtEp[keys]} | {avgAcc[keys]:.2f}")
