@@ -79,3 +79,5 @@ for items in experiment_configs:
 
 print(experiment_configs[0]["learning_rate"] == 0.01)
 print(base_config["learning_rate"] == 0.001)
+
+assert base_config == {"learning_rate": 0.001, "batch_size": 32, "epochs": 10, "optimizer": "adam", "dropout": 0.1}
