@@ -21,8 +21,8 @@ latencies_ms = [340, 280, 190, 95]
 
 aiList = []
 
-for model_names, accuracies, latencies_ms in zip(model_names, accuracies, latencies_ms):
-    aiList.append({"name" : model_names, "accuracy": accuracies, "latency_ms": latencies_ms})
+for name, acc, lat in zip(model_names, accuracies, latencies_ms):
+    aiList.append({"name" : name, "accuracy": acc, "latency_ms": lat})
 
 for item in aiList:
     print(item)
