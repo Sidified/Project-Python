@@ -19,12 +19,11 @@ batch_size = 5
 
 batches = []
 
-
 count = 0
 startIdx = 0
 endIdx = 5
 
-for i in range(0, batch_size):
+for i in range(0, len(items), batch_size):
     currentBatch = items[startIdx:endIdx]
     batches.append(currentBatch) 
     print(f"batch {count}: {items[startIdx:endIdx]}")
@@ -33,8 +32,7 @@ for i in range(0, batch_size):
     endIdx+=batch_size
 
 itemLen = 0
-for i in range(0, batch_size):
+for i in range(0, len(batches)):
     itemLen+=len(batches[i])
-    i+=1
 
 print(f"Total items in all the batches are -> {itemLen}")
