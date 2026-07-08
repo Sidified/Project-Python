@@ -96,21 +96,8 @@ print(dictList)
 # Part-2 ---------------------------------------
 
 by_exp = {}
-logsA = []
-logsC = []
-logsB = []
-
-for items in dictList:
-    if items['exp'] == 'A':
-        logsA.append(items)
-    elif items['exp'] == 'B':
-        logsB.append(items)
-    else:
-         logsC.append(items)
-
-by_exp['A'] = logsA
-by_exp['B'] = logsB
-by_exp['C'] = logsC
+for log in dictList:
+    by_exp.setdefault(log["exp"], []).append(log)
 
 print(by_exp)
 # ----------------------------------------------
@@ -122,16 +109,16 @@ for keys in by_exp:
     numEp[keys] = (len(by_exp[keys]))
 print(numEp)
 
-finalLoss = {}
-finalLossAtEp = {}
+best_loss = {}
+best_epoch = {}
 for keys in by_exp:
     for items in by_exp[keys]:
         idx = numEp[keys] - 1
-        finalLoss[keys] = by_exp[keys][idx]['loss']
-        finalLossAtEp[keys] = f"best_loss={by_exp[keys][idx]['loss']:.4f} @ epoch {numEp[keys]}"
+        best_loss[keys] = min(entry["loss"] for entry in by_exp[keys])
+        best_epoch[keys] = min(by_exp[keys], key=lambda e: e["loss"])["epoch"]
+    print(f"For experiment {keys} best_loss={best_loss[keys]:.4f} @ epoch {best_epoch[keys]}")
 
-print(finalLoss)
-print(finalLossAtEp)
+print(f"Best Loss -> {best_loss}")
 
 avgAcc = {}
 for keys in by_exp:
@@ -145,8 +132,22 @@ print(avgAcc)
 # ----------------------------------------------
 
 # Part-4 ---------------------------------------
-
+final_loss = {exp: by_exp[exp][-1]["loss"] for exp in by_exp}
 for keys in by_exp:
-    print(f"Experiment {keys}: {numEp[keys]} epochs | final_loss={finalLoss[keys]:.4f} | {finalLossAtEp[keys]} | {avgAcc[keys]:.2f}")
+    print(f"Experiment {keys}: {numEp[keys]} epochs | final_loss={final_loss[keys]:.4f} | best_loss={best_loss[keys]:.4f} @ epoch {best_epoch[keys]} | avg_acc={avgAcc[keys]:.2f}")
 
 # ----------------------------------------------
+
+# Part-5 ---------------------------------------
+max_key = max(avgAcc, key=avgAcc.get)
+max_value = avgAcc[max_key]
+
+print(f"Best experiment: {max_key} (avg_acc={max_value:.2f})")
+
+# ----------------------------------------------
+
+# ASSERTIONS
+assert len(dictList) == len(logs) 
+assert sum(len(v) for v in by_exp.values()) == len(logs)
+for keys in by_exp:
+    assert len(by_exp[keys]) > 0
