@@ -47,6 +47,8 @@ for t in tokens:
 
 print(id_to_token)
 
+print(len(tokens) == len(token_to_id) == len(id_to_token))
+
 
 
 
