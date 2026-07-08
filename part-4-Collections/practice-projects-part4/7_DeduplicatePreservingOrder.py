@@ -30,7 +30,14 @@ for i in sequence:
         dedup_v1.append(i)
 print(dedup_v1)
 
-dedup_v2 = sorted(set(dedup_v1))
+# dedup_v2 = sorted(set(dedup_v1))
+
+seen = set()
+dedup_v2 = []
+for item in sequence:      # from the ORIGINAL sequence
+    if item not in seen:
+        seen.add(item)
+        dedup_v2.append(item)
 print(dedup_v2)
 
 print(dedup_v1 == dedup_v2)
