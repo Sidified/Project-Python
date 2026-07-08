@@ -49,7 +49,7 @@ tokensList = []
 for sent in newCorpus:
     token = []
     for i in sent.split():
-        word = i.strip("., ,, !, ?")
+        word = i.strip(".,!?")
         token.append(word)
     tokensList.append(token)
 
@@ -65,9 +65,10 @@ for items in tokensList:
             continue
         else:
             uniqueTokens[i] = idx
-        idx+=1
+            idx+=1
 
 print(uniqueTokens)
+assert set(uniqueTokens.values()) == set(range(len(uniqueTokens)))
 # -------------------------------------------------------
 
 # Part 3-------------------------------------------------
@@ -112,7 +113,7 @@ print(decodeSent)
 clean = []
 
 for item in newCorpus:
-    clean.append(item.strip("., ,, !, ?"))
+    clean.append(item.strip(".,!?"))
 
 i = 0
 for item in clean:
