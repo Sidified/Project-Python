@@ -19,10 +19,10 @@
 # Verification: Sum of all frequency counts must equal len(text.split()). Assert this.
 
 text = "the model predicted the cat but the actual label was dog and the model was wrong"
-list = text.split()
+tokens = text.split()
 count = {}
 
-for item in list:
+for item in tokens:
     count[item] = count.get(item, 0) + 1
 
 sortedCount = sorted(count.items(), key=lambda item: item[1], reverse=True)
@@ -31,5 +31,6 @@ top3 = sortedCount[0:3]
 
 
 for i in range(0,3):
-    print(f"1. {top3[i][0]} ({top3[i][1]})")
+    print(f"{i+1}. {top3[i][0]} ({top3[i][1]})")
 
+assert sum(count.values()) == len(text.split())
