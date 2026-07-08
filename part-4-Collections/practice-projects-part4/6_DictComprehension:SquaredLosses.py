@@ -20,3 +20,6 @@ print(newDict)
 
 newDict2 = {x: y for x, y in losses_per_epoch.items() if y < 0.5}
 print(newDict2)
+
+assert len(newDict) == len(losses_per_epoch)
+assert len(newDict2) == 3
