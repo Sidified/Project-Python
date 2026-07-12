@@ -29,8 +29,8 @@ def composite_score(model):
     accuracy = model["accuracy"]
     latency_ms = model["latency_ms"]
 
-    composite_score = accuracy - (0.001 * latency_ms)
-    return composite_score
+    compos_scr = accuracy - (0.001 * latency_ms)
+    return compos_scr
 
 sorted_named = sorted(models, key=composite_score, reverse=True)
 print(sorted_named)
