@@ -34,7 +34,7 @@ def mean_squared_error(predictions, targets):
     total = 0
     for pred, targ in zip(predictions, targets):
         total += ((pred - targ) ** 2)
-    return total//len(predictions)
+    return total/len(predictions)
     
 def mean_absolute_error(predictions, targets):
     if len(predictions) != len(targets):
@@ -42,18 +42,16 @@ def mean_absolute_error(predictions, targets):
     total = 0
     for pred, targ in zip(predictions, targets):
         total += abs(pred - targ)
-    return total//len(predictions)
+    return total/len(predictions)
     
 assert mean_squared_error([1, 2, 3], [1, 2, 3]) == 0
 assert mean_absolute_error([1, 2, 3], [1, 2, 3]) == 0
 assert mean_squared_error([1, 2, 3], [2, 3, 4]) == 1.0
 assert mean_absolute_error([1, 2, 3], [2, 3, 4]) == 1.0
+assert mean_squared_error([1, 2, 3], [1.5, 2.5, 3.5]) == 0.25
+assert mean_squared_error([1, 2, 3], [2.5, 3.5, 4.5]) == 2.25
 
 print("All assertions passed!")
 
-
 # This will raise the -> ValueError: Lengths of list -> 'predictions' and list -> 'targets' are not equal
 # mean_squared_error([1, 2, 3], [1, 2])
-
-
-
