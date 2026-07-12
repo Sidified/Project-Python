@@ -28,13 +28,13 @@
 def build_config(*required, **hyperparams):
     if len(required) < 2:
         raise ValueError("Must receive at least 2 positional args")
-    finalDict = {'required': required, 'hyperparams': hyperparams, 'total_kwargs': len(hyperparams)}
+    finalDict = {'required': list(required), 'hyperparams': hyperparams, 'total_kwargs': len(hyperparams)}
     return finalDict
 
 result = build_config("model_a", "dataset_b", lr=0.01, epochs=10, batch_size=32)
 print(result)
 
-assert result["required"] == ("model_a", "dataset_b")
+assert result["required"] == ["model_a", "dataset_b"]
 assert result["total_kwargs"] == 3
 assert result["hyperparams"]["lr"] == 0.01
 
