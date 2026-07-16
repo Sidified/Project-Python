@@ -1,0 +1,2 @@
+name,accuracy,latency_ms,timestamp
+bad_model,abcXYZ,broken,2026-01-15

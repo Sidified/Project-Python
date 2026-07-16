@@ -1,0 +1,5 @@
+name,accuracy,latency_ms,timestamp
+gpt-4,0.87,340,2026-01-15
+claude-opus,0.91,280,2026-01-15
+llama-70b,0.82,190,2026-01-15
+mistral-7b,0.76,95,2026-01-15
