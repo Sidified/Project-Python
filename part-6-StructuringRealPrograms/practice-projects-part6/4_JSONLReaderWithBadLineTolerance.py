@@ -15,7 +15,7 @@
 # -> Malformed lines should be caught and skipped, not crash the function
 # -> Print a warning to stderr for each skipped line, including the line number
 
-# Hint: import sys; print("warning: ...", file=sys.stderr).
+# Hint: import sys; print("warning: ...", file=sys.stderr)
 
 # Verification: assert len(records) == 4, assert error_count == 2,
 # assert every record in records is a dict.
