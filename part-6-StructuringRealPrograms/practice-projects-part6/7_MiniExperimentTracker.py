@@ -107,10 +107,6 @@ def load_config(path):
         raise ConfigError(f"Config file is not valid JSON: {path}")
         
     return fileDict
-# -----------------------------------------------------------------------
-
-
-# ------------------------------ PART-2 ---------------------------------
 
 baseConfig = load_config(path)
 print("")
@@ -119,21 +115,23 @@ print("")
 print("This is the base-config ->")
 print("")
 print(baseConfig)
+# -----------------------------------------------------------------------
+
+
+# ------------------------------ PART-2 ---------------------------------
 
 expDict = {}
 
-for i in experiments:
+for override in experiments:
+    name = override["name"]
 
-    name = i["name"]
-    exp = baseConfig.copy()
+    merged = {
+        **baseConfig,
+        **{k: v for k, v in override.items() if k != "name"}
+    }
 
-    if name in expDict:
-        continue
-    else:
-        for key in i:    
-            if key in exp:
-                exp[key] = i[key]
-                expDict[name] = exp
+    expDict[name] = merged
+
 print("")
 print("---------------- PART-2 -------------------------")
 print("")
@@ -177,36 +175,25 @@ print(simList)
 
 # ------------------------------ PART-4 ---------------------------------
 logsList = []
+
 for item in simList:
     logs = simList[item]
-    for i in logs:
-        jsonLogs = {}
-        jsonLogs["Experiment"] = item
-        jsonLogs["Epoch"] = i[0]
-        jsonLogs["Loss"] = i[1]
-        jsonLogs["Accuracy"] = i[2]
-        logsList.append(jsonLogs)
 
-path_A = "part-6-StructuringRealPrograms/practice-projects-part6/data/exp_A.jsonl"
-path_B = "part-6-StructuringRealPrograms/practice-projects-part6/data/exp_B.jsonl"
-path_C = "part-6-StructuringRealPrograms/practice-projects-part6/data/exp_C.jsonl"
+    jsonlpath = f"part-6-StructuringRealPrograms/practice-projects-part6/data/{item}.jsonl"
 
-open(path_A, "w").close()
-open(path_B, "w").close()
-open(path_C, "w").close()
+    with open(jsonlpath, "w") as f:
 
-for items in logsList:
-    if items['Experiment'] == 'exp_A':
-        with open(path_A, 'a') as f:
-            json.dump(items, f)
-            f.write("\n")
-    elif items['Experiment'] == 'exp_B':
-        with open(path_B, 'a') as f:
-            json.dump(items, f)
-            f.write("\n")
-    elif items['Experiment'] == 'exp_C':
-        with open(path_C, 'a') as f:
-            json.dump(items, f)
+        for i in logs:
+            jsonLogs = {}
+
+            jsonLogs["Experiment"] = item
+            jsonLogs["Epoch"] = i[0]
+            jsonLogs["Loss"] = i[1]
+            jsonLogs["Accuracy"] = i[2]
+
+            logsList.append(jsonLogs)
+
+            json.dump(jsonLogs, f)
             f.write("\n")
 
 print("")
@@ -218,110 +205,100 @@ print(logsList)
 
 # ------------------------------ PART-5 ---------------------------------
 
-def read_jsonl(path):
+def read_jsonl(jsonlpath):
     records = []
 
-    with open(path, "r") as file:
-        for line in file:
+    with open(jsonlpath, "r") as file:
+        for line_number, line in enumerate(file, start=1):
             try:
                 records.append(json.loads(line))
-            except json.JSONDecodeError:
-                raise("JSONDecodeError")
+            except json.JSONDecodeError as e:
+                print(f"Warning: Skipping invalid JSON on line {line_number} in {jsonlpath}: {e}")
 
-        return records
+    return records
 
 
-expA = read_jsonl(path_A)
-expB = read_jsonl(path_B)
-expC = read_jsonl(path_C)
+loadedLogs = {}
+
+for expName in expDict:
+    jsonlpath = f"part-6-StructuringRealPrograms/practice-projects-part6/data/{expName}.jsonl"
+    loadedLogs[expName] = read_jsonl(jsonlpath)
 
 print("")
 print("---------------- PART-5 -------------------------")
 print("")
-print("Experiment A ->")
-print(expA)
-print("")
-print("Experiment B ->")
-print(expB)
-print("")
-print("Experiment C ->")
-print(expC)
-print("")
+
+for expName, records in loadedLogs.items():
+    print(f"{expName} ->")
+    print(records)
+    print("")
 # -----------------------------------------------------------------------
 
 
 # ------------------------------ PART-6 ---------------------------------
+summary = {}
 
-epochNumA = 0
-epochNumB = 0
-epochNumC = 0
+for expName, records in loadedLogs.items():
 
-finalLossA = 0
-finalLossB = 0
-finalLossC = 0
+    epochNum = len(records)
+    finalLoss = records[-1]["Loss"]
 
-minLossA = []
-minLossB = []
-minLossC = []
+    minLoss = [records[0]["Loss"], records[0]["Epoch"]]
 
-accA = []
-accB = []
-accC = []
+    acc = []
 
-for i in logsList:
-    if i['Experiment'] == 'exp_A':
-        epochNumA +=1
-        accA.append(i['Accuracy'])
-        finalLossA = i['Loss']
-        if len(minLossA) == 0:
-            minLossA.append(i['Loss'])
-            minLossA.append(epochNumA)
-        elif minLossA[0] > i['Loss']:
-            minLossA[0] = i['Loss']
-            minLossA[1] = epochNumA
-    elif i['Experiment'] == 'exp_B':
-        epochNumB +=1
-        accB.append(i['Accuracy'])
-        finalLossB = i['Loss']
-        if len(minLossB) == 0:
-            minLossB.append(i['Loss'])
-            minLossB.append(epochNumB)
-        elif minLossB[0] > i['Loss']:
-            minLossB[0] = i['Loss']
-            minLossB[1] = epochNumB
-    elif i['Experiment'] == 'exp_C':
-        epochNumC +=1
-        accC.append(i['Accuracy'])
-        finalLossC = i['Loss']
-        if len(minLossC) == 0:
-            minLossC.append(i['Loss'])
-            minLossC.append(epochNumC)
-        elif minLossC[0] > i['Loss']:
-            minLossC[0] = i['Loss']
-            minLossC[1] = epochNumC
+    for record in records:
 
-avgAccA = sum(accA)/len(accA)
-avgAccB = sum(accB)/len(accB)
-avgAccC = sum(accC)/len(accC)
+        acc.append(record["Accuracy"])
 
+        if record["Loss"] < minLoss[0]:
+            minLoss[0] = record["Loss"]
+            minLoss[1] = record["Epoch"]
+
+    avgAcc = sum(acc) / len(acc)
+
+    summary[expName] = {
+        "num_epochs": epochNum,
+        "final_loss": finalLoss,
+        "best_loss": minLoss[0],
+        "best_epoch": minLoss[1],
+        "avg_accuracy": avgAcc
+    }
+
+print("")
 print("---------------- PART-6 -------------------------")
-print(epochNumA, epochNumB, epochNumC)
-print(finalLossA, finalLossB, finalLossC)
-print(minLossA, minLossB, minLossC)
-print(avgAccA, avgAccB, avgAccC)
+print("")
+
+for expName, stats in summary.items():
+    print(expName)
+    print(stats)
+    print("")
 # -----------------------------------------------------------------------
 
 
 # ------------------------------ PART-7 ---------------------------------
 
-rows = [['experiment', 'num_epochs', 'final_loss', 'best_loss', 'best_epoch', 'avg_accuracy'],
-        ['Experiment_A', epochNumA, finalLossA, minLossA[0], minLossA[1], avgAccA],
-        ['Experiment_B', epochNumB, finalLossB, minLossB[0], minLossB[1], avgAccB],
-        ['Experiment_C', epochNumC, finalLossC, minLossC[0], minLossC[1], avgAccC]]
+rows = [["experiment", "num_epochs", "final_loss", "best_loss", "best_epoch", "avg_accuracy"]]
 
-with open("part-6-StructuringRealPrograms/practice-projects-part6/data/summary.csv", "w", encoding="utf-8", newline="") as f:
+for expName, stats in summary.items():
+    rows.append([
+        expName,
+        stats["num_epochs"],
+        stats["final_loss"],
+        stats["best_loss"],
+        stats["best_epoch"],
+        stats["avg_accuracy"]
+    ])
+
+with open(
+    "part-6-StructuringRealPrograms/practice-projects-part6/data/summary.csv",
+    "w",
+    encoding="utf-8",
+    newline=""
+) as f:
     writer = csv.writer(f)
-    writer.writerows(rows)  # Write all rows at once
+    writer.writerows(rows)
+
 # -----------------------------------------------------------------------
 
 
@@ -331,20 +308,23 @@ with open("part-6-StructuringRealPrograms/practice-projects-part6/data/summary.c
 with open("part-6-StructuringRealPrograms/practice-projects-part6/data/summary.csv", "r") as f:
     rows = list(csv.reader(f))
 
-assert len(rows) == 4
+assert len(rows) == len(summary) + 1
+
 
 # Assertion - 2
-summary_names = [row[0] for row in rows[1:]]
+summary_names = {row[0] for row in rows[1:]}
 
-expected = {"Experiment_A", "Experiment_B", "Experiment_C"}
+expected = {exp["name"] for exp in experiments}
 
-assert set(summary_names) == expected
+assert summary_names == expected
+
 
 # Assertion - 3
 assert baseConfig["learning_rate"] == 0.001
 assert baseConfig["batch_size"] == 32
 assert baseConfig["epochs"] == 5
 assert baseConfig["optimizer"] == "adam"
+
 
 # Assertion - 4
 fresh_config = load_config(path)
@@ -354,10 +334,11 @@ assert fresh_config["batch_size"] == 32
 assert fresh_config["epochs"] == 5
 assert fresh_config["optimizer"] == "adam"
 
+
 # Assertion - 5
-assert len(expA) == expDict["exp_A"]["epochs"]
-assert len(expB) == expDict["exp_B"]["epochs"]
-assert len(expC) == expDict["exp_C"]["epochs"]
+for expName in expDict:
+    assert len(loadedLogs[expName]) == expDict[expName]["epochs"]
+
 
 print("----------------------")
 print("All assertions passed!")
