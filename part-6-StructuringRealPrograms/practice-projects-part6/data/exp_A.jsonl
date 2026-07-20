@@ -1,0 +1,5 @@
+{"Experiment": "exp_A", "Epoch": 1, "Loss": 0.9, "Accuracy": 0.5}
+{"Experiment": "exp_A", "Epoch": 2, "Loss": 0.75, "Accuracy": 0.58}
+{"Experiment": "exp_A", "Epoch": 3, "Loss": 0.6, "Accuracy": 0.6599999999999999}
+{"Experiment": "exp_A", "Epoch": 4, "Loss": 0.44999999999999996, "Accuracy": 0.7399999999999999}
+{"Experiment": "exp_A", "Epoch": 5, "Loss": 0.29999999999999993, "Accuracy": 0.8199999999999998}
