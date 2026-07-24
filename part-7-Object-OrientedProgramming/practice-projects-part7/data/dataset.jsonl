@@ -1,0 +1,12 @@
+{"text": "The movie was fantastic and engaging.", "label": "positive", "score": 0.96}
+{"text": "Customer support resolved my issue quickly.", "label": "positive", "score": 0.91}
+{"text": "The package arrived damaged and late.", "label": "negative", "score": 0.18}
+{"text": "I enjoyed the food but the service was slow.", "label": "neutral", "score": 0.63}
+{"text": "The new update significantly improved performance.", "label": "positive", "score": 0.88}
+{"text": "The application crashes every time I open it.", "label": "negative", "score": 0.09}
+{"text": "The lecture was informative and easy to follow.", "label": "positive", "score": 0.94}
+{"text": "The product quality is average for its price.", "label": "neutral", "score": 0.55}
+{"text": "I would not recommend this hotel to anyone.", "label": "negative", "score": 0.14}
+
+{"text": "Excellent battery life and premium build quality.", "label": "positive", "score": 0.98}
+{"text": "This line is malformed", "label": "positive", "score": 0.75
