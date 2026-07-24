@@ -58,20 +58,14 @@ class BaseModel:
     
 
 class EchoModel(BaseModel):
-    def __init__(self, name):
-        self.name = name
     def predict(self, input_text):
         return f"ECHO: {input_text}"
 
 class UppercaseModel(BaseModel):
-    def __init__(self, name):
-        self.name = name
     def predict(self,input_text):
         return input_text.upper()
 
 class ReverseModel(BaseModel):
-    def __init__(self, name):
-        self.name = name
     def predict(self, input_text):
         return input_text[::-1]
     
