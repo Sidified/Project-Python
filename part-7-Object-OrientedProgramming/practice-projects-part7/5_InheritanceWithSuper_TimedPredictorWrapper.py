@@ -84,8 +84,6 @@ class TimedModel(BaseModel):
         return len(self._latencies)
 
 class EchoModel(BaseModel):
-    def __init__(self, name):
-        self.name = name
     def predict(self, input_text):
         return f"ECHO: {input_text}"
 
