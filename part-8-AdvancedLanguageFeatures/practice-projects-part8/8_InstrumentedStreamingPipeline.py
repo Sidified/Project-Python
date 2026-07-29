@@ -134,13 +134,6 @@ def call_llm(prompt):
     if random.random() < 0.20:
         raise ConnectionError("simulated network fail")
     return f"response for: {prompt}"
-# def call_llm(prompt):
-#     value = random.random()
-#     print(f"Random value: {value}")
-#     if value < 0.3:
-#         raise ConnectionError("simulated network fail")
-#     return f"response for: {prompt}"
-
 
 def stream_jsonl(path):
     count = 0
