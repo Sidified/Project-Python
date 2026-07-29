@@ -4363,6 +4363,10 @@ result = [x*y for x in range(10) if x > 2 for y in range(10) if y > x if (x + y)
 
 ---
 
+# Part V — Functions
+
+---
+
 # Chapter 20: Functions — The Fundamental Unit of Reuse
 
 ## What & Why
@@ -5428,6 +5432,10 @@ Don't try to trace the full call tree in your head — you'll get lost. Trust th
 
 ---
 
+# Part VI — Structuring Real Programs
+
+---
+
 # Chapter 25: Modules, Packages, and Imports
 
 ## What & Why
@@ -6415,6 +6423,10 @@ Use `pandas` for anything analytical — filtering, aggregation, groupby, joins.
 3. Why do you always pass `newline=""` when opening a CSV file?
 4. How would you write a Python `datetime` to JSON?
 5. Given a CSV with columns `name,age`, write code that prints the average age.
+
+---
+
+# Part VII — Object-Oriented Programming
 
 ---
 
@@ -7598,6 +7610,10 @@ For most small applications, ABCs are overkill. You often just use duck typing. 
 
 ---
 
+# Part VIII — Advanced Language Features
+
+---
+
 # Chapter 34: Iterators and Generators
 
 ## What & Why
@@ -8757,7 +8773,7 @@ These are starting points, not bulletproof validators — real email/URL validat
 5. When would you prefer `re.finditer` over `re.findall`?
 
 ---
----
+
 
 # Part IX — The Ecosystem
 
@@ -9531,4 +9547,8 @@ async      elif       if         or         yield
 | `__format__(self, spec)`                                                  | `f"{obj:spec}"`, `format(obj, spec)`      | Custom format-spec handling                                  |
 | `__del__(self)`                                                           | object garbage collection                 | Cleanup (rarely needed; unpredictable timing)                |
 
+
 **Rule of thumb:** implement `__repr__` on almost every class you write — it's the single highest-leverage dunder for debugging. Add `__eq__`/`__hash__`, `__lt__` etc., `__len__`/`__getitem__`/`__iter__`, or `__enter__`/`__exit__` only when your object actually needs to behave like a value, a collection, or a resource, respectively.
+
+---
+---
